@@ -21,18 +21,47 @@ class CreateUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showToast: false
+      toastToggle: true,
+      toastHeader: "",
+      toastMessage: ""
     };
 
-    this.toggle = this.toggle.bind(this);
+    this.showToast = this.showToast.bind(this);
+    this.resetForm = this.resetForm.bind(this);
+
   }
 
-  toggle() {
+  showToast = e => {
+    e.preventDefault();
     this.setState({
-      show: !this.state.showToast
+      showToast: true,
+      toastToggle: !this.state.toastToggle
     });
+
+    if(this.state.toastToggle){
+      this.setState({
+        toastHeader: "Success!",
+        toastMessage: "New User sucessfully created."
+      });
+    }
+    else{
+      this.setState({
+        toastHeader: "Faliure",
+        toastMessage: "Unable to create new User."
+      });
+    }
   }
 
+  resetForm() {
+    this.setState({
+      showToast: false,
+      toastToggle: true,
+      toastHeader: "",
+      toastMessage: ""
+    });
+    document.getElementById('createUserForm').reset();
+
+  }
 
   render(){
     return (
@@ -40,12 +69,11 @@ class CreateUser extends React.Component {
         <Container>
           <Row>
             <Col sm="6">
-            <Form>
+            <Form id="createUserForm"  onSubmit={this.showToast}>
               <Card body>
                 <CardHeader>
                   Create User
-                </CardHeader>
-               
+                </CardHeader>              
                   <FormGroup>
                     <Input name="username" id="username" placeholder="Username *" required="true" />
                     <Input type="email" name="email" id="emailAddress" placeholder="Email Address *" required="true" />
@@ -61,13 +89,13 @@ class CreateUser extends React.Component {
                 <CardFooter className="text-right">
                 <Toast isOpen={this.state.showToast}>
                     <ToastHeader>
-                      Success!
+                      {this.state.toastHeader}
                     </ToastHeader>
                     <ToastBody>
-                      The User was successfully created.
+                      {this.state.toastMessage}
                     </ToastBody>
                   </Toast>
-                  <Button>Cancel</Button>
+                  <Button onClick={this.resetForm}>Cancel</Button>
                   <Button>Submit</Button>
                 </CardFooter>
               </Card>
