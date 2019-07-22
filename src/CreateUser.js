@@ -40,11 +40,12 @@ class CreateUser extends React.Component {
         <Container>
           <Row>
             <Col sm="6">
+            <Form>
               <Card body>
                 <CardHeader>
                   Create User
                 </CardHeader>
-                <Form>
+               
                   <FormGroup>
                     <Input name="username" id="username" placeholder="Username *" required="true" />
                     <Input type="email" name="email" id="emailAddress" placeholder="Email Address *" required="true" />
@@ -57,7 +58,6 @@ class CreateUser extends React.Component {
                     <Input name="state" id="state" placeholder="State *" required="true" />
                     <Input name="zip" id="zip" placeholder="Zip *" required="true" />
                   </FormGroup>
-                </Form>
                 <CardFooter className="text-right">
                 <Toast isOpen={this.state.showToast}>
                     <ToastHeader>
@@ -71,6 +71,7 @@ class CreateUser extends React.Component {
                   <Button>Submit</Button>
                 </CardFooter>
               </Card>
+              </Form>
             </Col>
           </Row>
         </Container>
