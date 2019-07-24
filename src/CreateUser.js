@@ -21,6 +21,7 @@ class CreateUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showToast: false,
       toastToggle: true,
       toastHeader: "",
       toastMessage: ""
