@@ -75,7 +75,7 @@ class CreateUser extends React.Component {
                   <FormGroup>
                     <Input name="username" id="username" placeholder="Username *" required="true" />
                     <Input type="email" name="email" id="emailAddress" placeholder="Email Address *" required="true" />
-                    <Input name="phoneNumber" id="phoneNumber" placeholder="Phone Number *" required="true" />
+                    <Input type="tel" pattern="^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$" name="phoneNumber" id="phoneNumber" placeholder="Phone Number *" required="true" />
                     <Input name="firstName" id="firstName" placeholder="First Name *" required="true" />
                     <Input name="lastName" id="lastName" placeholder="Last Name *" required="true" />
                     <Input name="streetAddress" id="streetAddress" placeholder="Street Address *" required="true" />
