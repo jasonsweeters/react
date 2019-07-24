@@ -1,6 +1,6 @@
 import React from 'react';
 import './bootstrap.min.css';
-
+import {createStore} from 'redux';
 import {
   Button,
   Form,
@@ -16,6 +16,27 @@ import {
   ToastHeader,
   ToastBody,
 } from 'reactstrap';
+
+
+var defaultState = {
+  originAmount: '0.00'
+};
+
+function amount(state = defaultState, action){
+  if(action.type === 'CHANGE_ORIGIN_AMOUNT'){
+    return Object.assign({}, state, {originAmount: action.data})
+  }
+  return state;
+}
+
+var store = createStore(amount);
+
+store.subscribe(function() {
+  console.log('state', store.getState())
+});
+
+store.dispatch({type: 'CHANGE_ORIGIN_AMOUNT', data: '300.65'});
+
 
 class CreateUser extends React.Component {
   constructor(props) {
