@@ -1,6 +1,5 @@
 import React from 'react';
 import './bootstrap.min.css';
-import {createStore} from 'redux';
 import {
   Button,
   Form,
@@ -16,26 +15,7 @@ import {
   ToastHeader,
   ToastBody,
 } from 'reactstrap';
-
-
-var defaultState = {
-  originAmount: '0.00'
-};
-
-function amount(state = defaultState, action){
-  if(action.type === 'CHANGE_ORIGIN_AMOUNT'){
-    return Object.assign({}, state, {originAmount: action.data})
-  }
-  return state;
-}
-
-var store = createStore(amount);
-
-store.subscribe(function() {
-  console.log('state', store.getState())
-});
-
-store.dispatch({type: 'CHANGE_ORIGIN_AMOUNT', data: '300.65'});
+import store from './store/configureStore'
 
 
 class CreateUser extends React.Component {
@@ -55,12 +35,9 @@ class CreateUser extends React.Component {
 
   showToast = e => {
     e.preventDefault();
-    this.setState({
-      showToast: true,
-      toastToggle: !this.state.toastToggle
-    });
+    store.dispatch({type: "TOAST_MESSAGE_TOGGLE"});
 
-    if(this.state.toastToggle){
+    if(store.getState().toastToggle){
       this.setState({
         toastHeader: "Success!",
         toastMessage: "New User sucessfully created."
@@ -75,9 +52,8 @@ class CreateUser extends React.Component {
   }
 
   resetForm() {
+    store.dispatch({type: "RESET"});
     this.setState({
-      showToast: false,
-      toastToggle: true,
       toastHeader: "",
       toastMessage: ""
     });
@@ -109,7 +85,7 @@ class CreateUser extends React.Component {
                     <Input name="zip" id="zip" placeholder="Zip *" required="true" />
                   </FormGroup>
                 <CardFooter className="text-right">
-                <Toast isOpen={this.state.showToast}>
+                <Toast isOpen={store.getState().showToast}>
                     <ToastHeader>
                       {this.state.toastHeader}
                     </ToastHeader>
