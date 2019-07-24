@@ -11,16 +11,28 @@ var defaultState = {
   
   function amount(state = defaultState, action){
     if(action.type === 'TOAST_MESSAGE_TOGGLE'){
-      return Object.assign({}, state, {
+
+      let newState = Object.assign({}, state, {
         showToast: true,
-        toastToggle: !state.toastToggle
+        toastToggle: !state.toastToggle,
+        toastHeader: "Success!",
+        toastMessage: "New User sucessfully created."
       });
+
+      if(!newState.toastToggle){
+        newState.toastHeader = "Faliure";
+        newState.toastMessage = "Unable to create new User.";
+       }
+
+      return newState;
     }
 
     if(action.type === 'RESET'){
       return Object.assign({}, state, {
         showToast: false,
-        toastToggle: true
+        toastToggle: true,
+        toastHeader: "",
+        toastMessage: ""
       });
     }
 

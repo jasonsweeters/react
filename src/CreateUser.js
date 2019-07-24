@@ -21,11 +21,7 @@ import store from './store/configureStore'
 class CreateUser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      toastHeader: "",
-      toastMessage: ""
-    };
-
+ 
     this.showToast = this.showToast.bind(this);
     this.resetForm = this.resetForm.bind(this);
 
@@ -34,29 +30,13 @@ class CreateUser extends React.Component {
   showToast = e => {
     e.preventDefault();
     store.dispatch({type: "TOAST_MESSAGE_TOGGLE"});
-
-    if(store.getState().toastToggle){
-      this.setState({
-        toastHeader: "Success!",
-        toastMessage: "New User sucessfully created."
-      });
-    }
-    else{
-      this.setState({
-        toastHeader: "Faliure",
-        toastMessage: "Unable to create new User."
-      });
-    }
+    this.setState({});
   }
 
   resetForm() {
     store.dispatch({type: "RESET"});
-    this.setState({
-      toastHeader: "",
-      toastMessage: ""
-    });
+    this.setState({});
     document.getElementById('createUserForm').reset();
-
   }
 
   render(){
@@ -85,10 +65,10 @@ class CreateUser extends React.Component {
                 <CardFooter className="text-right">
                 <Toast isOpen={store.getState().showToast}>
                     <ToastHeader>
-                      {this.state.toastHeader}
+                      {store.getState().toastHeader}
                     </ToastHeader>
                     <ToastBody>
-                      {this.state.toastMessage}
+                      {store.getState().toastMessage}
                     </ToastBody>
                   </Toast>
                   <Button onClick={this.resetForm}>Cancel</Button>
