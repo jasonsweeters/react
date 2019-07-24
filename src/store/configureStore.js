@@ -4,7 +4,7 @@ import {createStore} from 'redux';
 var defaultState = {
     originAmount: '0.00',
     showToast: false,
-    toastToggle: true,
+    toastToggle: false,
     toastHeader: "",
     toastMessage: ""
   };
